@@ -23,7 +23,8 @@ func HealthHandler(w http.ResponseWriter, r *http.Request) {
 
 func ValidateShelterHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Validating shelter...")
-	dataUrl := getImage()
+	imageName := r.URL.Query().Get("imageName")
+	dataUrl := getImage(imageName)
 	if dataUrl == "" {
 		log.Println("Unable to retrieve shelter image.")
 		http.Error(w, "Unable to read image", http.StatusInternalServerError)
@@ -40,8 +41,8 @@ func ValidateShelterHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
-func getImage() string {
-	imagePath := utils.Image
+func getImage(imageName string) string {
+	imagePath := utils.Image + "/" + imageName
 	data, err := os.ReadFile(imagePath)
 	if err != nil {
 		log.Println(fmt.Errorf("Error reading image", err))
