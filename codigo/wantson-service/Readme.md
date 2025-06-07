@@ -37,14 +37,15 @@ y recibir el status UP
 ```
 
 ## Ejecutando el api de validacion de gondolas
-Para ejecutar el api v1 de la validacion de gondolas es necesario contar con el Bearer token del usuario de IBM.
-Puedes recuperarlo utilizando la siguiente [URL](https://cloud.ibm.com/docs/key-protect?topic=key-protect-retrieve-access-token). Recuerda utilizar el de 2990184 Juan Nolazco
-
-Una vez recuperado el Bearer token, tienes que cambiar el bearer token del codigo dentro del archivo pkg/utils.go y correr el proyecto.
-
-Por el momento el api toma la imagen a partir del filesystem. Puedes actualizarlo con cambiar/agregar la imagen nueva dentro de la carpeta image y actualizar la configuracion dentro de pkg/utils.go
- 
-Nota: Se estara validado como eliminar este setteo manual del token. Asi como la obtencion de la imagen.
+Simplemente ejecuta el api de POST /watson/validate/shelve 
+Donde el body debe recibir:
+```
+{
+"image64": "{imagen en base64}"
+"imageType": "{mime type de la imagen}"
+}
+```
+Cada ejecucion al api de watson, internamente se llama al api para obtener el bearer token. Esto habria que validar si lo dejamos asi o buscamos otra alternativa ya que tarda bastante el api en responder
 
 ## Contributing
 

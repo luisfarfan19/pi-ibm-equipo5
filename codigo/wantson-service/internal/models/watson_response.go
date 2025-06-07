@@ -5,17 +5,17 @@ type Health struct {
 }
 
 type WatsonAPIResponse struct {
-	WatsonResponse map[string]interface{} `json:"watson_response"`
-	Message        MessageContent         `json:"message"`
+	WatsonResponse map[string]interface{} `bson:"watsonResponse" json:"watsonResponse"`
+	ShelveMessage  Shelve                 `bson:"shelveMessage" json:"shelveMessage"`
 }
 
-type MessageContent struct {
-	Analysis string         `json:"analysis"`
-	Scores   map[string]int `json:"scores"`
-	Alerts   []string       `json:"alerts"`
+type Shelve map[string]ShelveDetail
+
+type ShelveDetail struct {
+	Obs        string `bson:"obs" json:"obs"`
+	Percentage string `bson:"porcentaje" json:"porcentaje"`
 }
 
-// Used for watson API
 type ImageURL struct {
 	URL string `json:"url"`
 }
@@ -40,4 +40,26 @@ type RequestPayload struct {
 	PresencePenalty  int       `json:"presence_penalty"`
 	Temperature      int       `json:"temperature"`
 	TopP             int       `json:"top_p"`
+}
+
+type PlanogramWatsonApiResponse struct {
+	ShelveCount  int               `json:"estantes"`
+	ShelveDetail map[string]string `json:"detalle"`
+}
+
+type SectionImageRequest struct {
+	Image64     string        `json:"image64"`
+	ImageType   string        `json:"imageType"`
+	StoreName   string        `json:"storeName"`
+	SectionId   string        `json:"sectionId"`
+	SectionJson WatsonSection `json:"sectionJson"`
+}
+
+type CredentialsRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type StoreName struct {
+	Name string `bson:"nombre" json:"nombre"`
 }
