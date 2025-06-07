@@ -21,8 +21,5 @@ WORKDIR /
 # Copy the binary
 COPY --from=builder /app/main .
 
-# Copy the image folder
-COPY --from=builder /app/image/ ./image/
-
 # Run the binary
 ENTRYPOINT ["/main"]
